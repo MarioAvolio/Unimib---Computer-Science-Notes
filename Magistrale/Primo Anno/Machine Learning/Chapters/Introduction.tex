@@ -52,7 +52,7 @@ Esistono due tipi di esperienza:
   l’informazione necessaria.
   \item \textbf{Indiretta}
 \end{enumerate}
-
+\newpage
 %----------------------------------------------------------------------------------------
 %	SECTION 
 %----------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ Esistono due tipi di esperienza:
     
     \item \textbf{Ipotesi (o Modello)}, $h\subseteq X$: Essa rappresenta una possibile soluzione al problema. Normalmente simboleggiata da un vettore booleano dove ogni elemento di esso si riferisce a un attributo.
     \begin{itemize}
-        \item \textbf{Ipotesi $h$}: ovvero una congiunzione (\textb{f$\land$}) di vincoli sugli
+        \item \textbf{Ipotesi $h$}: ovvero una congiunzione (\textb{$$\land$}) di vincoli sugli
     attributi. Tale ipotesi è \textbf{consistente}, ovvero è coerente con tutti gli esempi.
     \item \textbf{soddisfazione di un'ipotesi}: un'istanza $x$ soddisfa
     un'ipotesi $h$ sse tutti i vincoli espressi da $h$ sono soddisfatti dai
@@ -183,6 +183,7 @@ apprendimento, tale per cui $h\approx f$. Questo è un modello semplificato
 dell'apprendimento reale in quanto si ignorano a priori le conoscenze e si assume
 di avere un insieme di dati. Viene usato un approccio che sfrutta anche il \textit{Rasoio di Occam}.
 Si avrà, in realtà, a che fare con dati di target e ipotesi booleani, e questo ambito è propriamente chiamato \textbf{concept learning}.
+\newpage
 
 %----------------------------------------------------------------------------------------
 %	SECTION 
@@ -441,6 +442,7 @@ Il concept learning è quindi una ricerca del \textit{fit} migliore.
   dovrò contare $\emptyset$ come ipotetico valore per ogni attributo e quindi:
   \[|H|_{sint}=\prod (|A_i|+2)\]
 \end{esempio}
+\newpage
 %----------------------------------------------------------------------------------------
 %	SECTION 
 %----------------------------------------------------------------------------------------
@@ -449,7 +451,7 @@ Il concept learning è quindi una ricerca del \textit{fit} migliore.
 Parliamo ora dell'algoritmo \textbf{Find-S}. Questo algoritmo permette di
 partire dall'ipotesi più specifica (attributi nulli, indicati con
 $\emptyset$) e generalizzarla, 
-trovando ad ogni passo un'ipotesi più specifica e consistente con il training
+trovando ad ogni passo un'ipotesi più adatta e consistente con il training
 set $D$. L'ipotesi in uscita sarà anche consistente con gli esempi negativi
 dando prova che il target è effettivamente in $H$. Con questo algoritmo non si
 può dimostrare di aver trovato l'unica ipotesi consistente con gli esempi e,
@@ -476,9 +478,9 @@ inconsistenti. Inoltre non ho l'ipotesi più generale.
 \end{algorithm}
 \subsubsection{Esercitazione sull'algoritmo find-S}
 \textit{Verranno usati concetti spiegati più avanti in questi appunti.}\\
-Si ha anche il \textbf{bias induttivo} che permette di studiare anche esempi non
-visti nel training set, anche se è una situazione rara da analizzare a causa
-dell'inconsistenza stessa degli esempi e dal loro rumore.
+Si ha che il \textbf{bias induttivo} permette di studiare anche esempi non
+visti nel training set, tuttavia è una situazione rara da analizzare a causa
+dell'inconsistenza stessa degli esempi e del loro rumore.
 \begin{esempio}
   Prendiamo il seguente \textit{training set} $D$:
   \begin{table}[H]
@@ -493,13 +495,12 @@ dell'inconsistenza stessa degli esempi e dal loro rumore.
       $x_5$ & 0 & 0 & 1 & 0 & 1\\
     \end{tabular}
   \end{table}
-  Applico quindi \textbf{find-S}, che ad ogni iterazione cerca di generalizzare
-  un poco l'ipotesi più specifica.\\
+  Applico \textbf{find-S}, che ad ogni iterazione cerca di generalizzare l'ipotesi.\\
   Parto dall'ipotesi più specifica in assoluto:
   \[S=\{\langle\emptyset,\emptyset,\emptyset,\emptyset\rangle\}\]
   Si presenta il primo esempio $x_1=(1,0,1,0)$ che ha label 1, quindi
-  $t(x_1)=1$. Ovviamente il primo valore già non soddisfa il vincolo imposto da
-  $S$ e quindi in $S$ faccio il \textit{replace} del valore del primo attributo
+  $t(x_1)=1$. Il primo valore non soddisfa il vincolo imposto da
+  $S$, quindi in $S$ faccio il \textit{replace} del valore del primo attributo
   di $x_1$ con quello di $S$. Visto che $S$ è però l'ipotesi più specifica dovrò
   farlo per tutti i vincoli, ottenendo che $S$ diventa, di fatto, una copia di
   $x_1$: 
@@ -508,14 +509,14 @@ dell'inconsistenza stessa degli esempi e dal loro rumore.
   $t(x_2)=0$. Essendo un esempio negativo viene ignorato dall'algoritmo,
   lasciando inalterato $S$.\\
   Si presenta il terzo esempio $x_3=(1,0,1,1)$ che ha label 0, quindi
-  $t(x_3)=0$.Essendo un esempio negativo viene ignorato dall'algoritmo,
+  $t(x_3)=0$. Essendo un esempio negativo viene ignorato dall'algoritmo,
   lasciando inalterato $S$.\\
   Si presenta il quarto esempio $x_4=(0,0,0,0)$ che ha label 1, quindi
   $t(x_4)=1$. Controllo quindi con $S$ i vari valori. Dove si ha lo stesso
   valore lo tengo in $S$, altrimenti pongo il caso generico ``?'' (sempre
-  nell'ottica di generalizzare sempre più), in quanto ho
-  due esempi che mi dicono che avere, per quell'attributo', 1 o 0 va comunque
-  bene. Alla fine avrò:
+  nell'ottica voler generalizzare il più possibile), in quanto ho
+  due esempi che mi dicono che avere, per quell'attributo, 1 o 0 va ugualmente
+  bene. Ottengo:
   \[S=\{\langle ?,0,?,0\rangle\}\]
   Si presenta il quinto esempio $x_5=(0,0,1,0)$ che ha label 1, quindi
   $t(x_5)=1$. Procedo come sopra e ottengo, infine:
@@ -563,27 +564,26 @@ dell'inconsistenza stessa degli esempi e dal loro rumore.
     da \textbf{find-S}.
   \end{shaded}
 \end{esempio}
-Sono quindi ben chiari i problemi di \textbf{find-S}:
+Sono evidenti i problemi di \textbf{find-S}:
 \begin{itemize}
-  \item potrebbero esserci altre ipotesi consistenti rispetto a quella in output
-  \item training set inconsistenti possono ingannare l'algoritmo
+  \item Non si ha la garanzia che l'ipotesi in output sia l'unica consistente per il dato training set.
+  \item I training set inconsistenti possono ingannare l'algoritmo.
 \end{itemize}
 D'altro canto:
 \begin{itemize}
-  \item garantisce in output l'ipotesi più specifica consistente con gli esempi
-  positivi
-  \item l'ipotesi finale è consistente anche con gli esempi negativi, a patto
-  che il \textit{target concep}t sia contenuto in $H$ e che gli esempi siano
-  corretti
+  \item Garantisce che l'ipotesi in output sia quella piu specifica
+  e consistente per gli esempi positivi del training set.
+  \item L'ipotesi finale è consistente anche con gli esempi negativi, a patto
+  che il \textit{target concept} sia contenuto in $H$ e gli esempi siano
+  corretti.
 \end{itemize}
 \subsection{Algoritmi di eliminazione}
 \begin{definizione}
   Definiamo \textbf{soddisfacibilità} quando un esempio $x$ soddisfa un'ipotesi
-  $h$, evento indicato con:
+  $h$ a priori sul fatto che $x$ sia un esempio positivo o negativo del
+  \textit{target concept}. Questo evento viene indicato con:
   \[h(x)=1\]
-  a priori sul fatto che $x$ sia un esempio positivo o negativo del
-  \textit{target concept}. Si ha quindi
-  che i valori $x$ soddisfano i vincoli $h$. 
+  Si ha quindi che i valori $x$ soddisfano i vincoli $h$. 
 \end{definizione}
 \begin{definizione}
   Si dice che $h$ è \textbf{consistente} con il training set $D$ di concetti
@@ -591,7 +591,7 @@ D'altro canto:
   \[Consistent(h,D):=h(x)=c(x),\,\,\forall \langle x,c(x)\rangle\in D\]
 \end{definizione}
 \begin{definizione}
-  Si definisce \textbf{version space}, rispetto ad $H$ e $D$, come il
+  Si definisce \textbf{version space}, rispetto ad $H$ e $D$, il
   sottoinsieme delle ipotesi da $H$ consistenti con $D$ e si indica con:
   \[VS_{H,D}=\{h\in H|\,Consistent(h,D)\]
 \end{definizione}
@@ -621,7 +621,7 @@ D'altro canto:
   ogni valore va bene e, avendo la classificazione 
   \textit{yes}, ho la stessa etichetta assegnata dalla \textbf{funzione target}
   $enjoySport$, quindi l'ipotesi è consistente con l'esempio. \\
-  Questo vale per tutti e quattro gli esempi (il terzo non ``appaia'' ma questo
+  Questo vale per tutti e quattro gli esempi (il terzo non ``appare'' ma questo
   è confermato dalla label \textit{no}) e quindi la mia ipotesi è
   \textbf{consistente} con il \textit{training set}.
 \end{esempio}
@@ -640,7 +640,7 @@ Vediamo quindi algoritmo \textbf{List-Then Eliminate}:
   \end{algorithmic}
   \caption{Algoritmo List-Then Eliminate}
 \end{algorithm}
-Questo algoritmo è irrealistico in quanto richiese un numero per forza esaustivo
+Questo algoritmo è irrealistico in quanto richiede un numero per forza esaustivo
 di ipotesi.
 \begin{definizione}
   Definiamo:
@@ -705,18 +705,18 @@ di ipotesi.
 \end{algorithm}
 Questo algoritmo ha alcune proprietà:
 \begin{itemize}
-  \item converge all'ipotesi $h$ corretta provando che non ci sono errori in $D$
-  e che $c\in H$
-  \item se $D$ contiene errori allora l'ipotesi corretta sarà eliminata dal
-  \textit{version space}
-  \item si possono apprendere solo le congiunzioni
-  \item se $H$ non contiene il concetto corretto $c$, verrà trovata l'ipotesi
-  vuota
+  \item Converge all'ipotesi $h$ corretta provando che non ci sono errori in $D$
+  e che $c\in H$.
+  \item Se $D$ contiene errori allora l'ipotesi corretta sarà eliminata dal
+  \textit{version space}.
+  \item Si possono apprendere \textbf{solo} le congiunzioni.
+  \item Se $H$ non contiene il concetto corretto $c$, verrà trovata l'ipotesi
+  vuota.
 \end{itemize}
 Il nostro spazio delle ipotesi non è in grado di rappresentare un semplice
 concetto di target disgiuntivo, si parla infatti di \textbf{Biased Hypothesis
   Space}. \\
-Studiamo quindi un \textbf{unbiased learner}. Si vuole scegliere un $H$ che
+Studiamo quindi un \textbf{unbiased learner}.\\Si vuole scegliere un $H$ che
 esprime ogni concetto insegnabile, ciò significa che $H$ è l'insieme di tutti i
 possibili sottoinsiemi di $X$. $H$ sicuramente contiene il concetto target. $S$
 diventa l'unione degli esempi positivi e $G$ la negazione dell'unione di quelli
@@ -726,14 +726,14 @@ Un learner che non fa assunzioni a priori in merito al concetto target non ha
 basi ``razionali'' per classificare istanze che non vede.\\
 Introduciamo quindi il \textbf{bias induttivo} considerando:
 \begin{itemize}
-  \item un algoritmo di learning del concetto $L$
-  \item degli esempi di training $D_C=\{\langle x,c(x)\rangle\}$
+  \item Un algoritmo di learning del concetto $L$.
+  \item Degli esempi di training $D_C=\{\langle x,c(x)\rangle\}$.
 \end{itemize}
 Si ha che $L(x_i,D_c$) denota la classificazione assegnata all'istanza $x_1$, da
 $L$, dopo il training con $D_c$.
 \begin{definizione}
-  Il \textbf{bias induttivo} (con \textbf{bias} che normalmente denota una
-  \emph{distorsione} o un \emph{scostamento} dei dati) di $L$ è un insieme
+  Il \textbf{bias induttivo} \footnote{un \textbf{bias} normalmente denota una
+  \emph{distorsione} o uno \emph{scostamento} dei dati.} di $L$ è un insieme
   minimale di asserzioni $B$ tale 
   che, per ogni concetto target $c$ e $D_c$ corrispondente si ha che:
   \[[B\land D_c\land x_i]\,\vdash\,L(x_i,D_c),\,\,\forall x_i\in X\]
@@ -741,25 +741,25 @@ $L$, dopo il training con $D_c$.
 \end{definizione}
 Possiamo quindi distinguere:
 \begin{itemize}
-  \item \textbf{sistema induttivo}, dove si hanno in input gli esempi di
-  training e la nuova istanza, viene usato l'algoritmo \textit{candidate
-    eliminate} con $H$ e si ottiene o la classificazione della nuova istanza
-  nulla
-  \item \textbf{sistema deduttivo} equivalente al sistema induttivo sopra
+  \item \textbf{Sistema induttivo}: si hanno in input gli esempi di
+  training e la nuova istanza; viene usato l'algoritmo \textit{candidate
+    eliminate} con $H$ e si ottiene la classificazione della nuova istanza
+  nulla.
+  \item \textbf{Sistema deduttivo}: equivalente al sistema induttivo sopra
   descritto dove in input si aggiunge l'asserzione ``$H$ contiene il concetto
-  target'' e si produce lo stesso output tramite un \textbf{prover di teoremi}
+  target'' e si produce lo stesso output tramite un \textbf{prover di teoremi}.
 \end{itemize}
 Abbiamo quindi visto tre tipi di \textit{learner}:
 \begin{enumerate}
-  \item il \textbf{rote learner}, dove si ha classificazione sse $x$ corrisponde
-  ad un esempio osservato precedentemente. Non si ha \textit{bias induttivo}
-  \item l'algoritmo \textbf{candidare eliminate} con \textbf{version space},
-  dove il \textit{bias} corrisponde al fatto che lo spazio delle ipotesi
-  contiene il concetto target 
-  \item l'algoritmo \textbf{Find-S}, dove il \textit{bias} corrisponde al fatto
+  \item Il \textbf{rote learner}: si ha classificazione sse $x$ corrisponde
+  ad un esempio osservato precedentemente. Non si ha \textit{bias induttivo}.
+  \item L'algoritmo \textbf{candidare eliminate} con \textbf{version space}:
+  il \textit{bias} corrisponde al fatto che lo spazio delle ipotesi contiene il concetto target. 
+  \item L'algoritmo \textbf{Find-S}: il \textit{bias} corrisponde al fatto
   che lo spazio delle ipotesi contiene il concetto target e tutte le istanze
-  sono negative a meno che il target opposto sia implicato in un altro modo 
+  sono negative a meno che il target opposto sia implicato in un altro modo. 
 \end{enumerate}
+\newpage
 %----------------------------------------------------------------------------------------
 %	SECTION 
 %----------------------------------------------------------------------------------------
@@ -802,11 +802,12 @@ risultati. Le foglie sono le risposte booleane.\\
   \caption{Esempio di albero decisionale}
   \label{dt}
 \end{figure}
+
 Avanzando nell'albero cerchiamo una risposta (che ci deve essere).\\
 La flessibilità nella costruzione dell'albero sta nel scegliere gli attributi e
 i valori di ognuno. Con l'algoritmo \textbf{ID3} si costruiscono alberi
-decisionali in base alle istanze che ricevo (per avere un albero coerente con le
-istanze ricevute).\\
+decisionali in base alle istanze che ricevo cosi da avere un albero coerente con le
+istanze ricevute.\\
 Formule booleane possono essere rappresentate in un albero decisionale (figura
 \ref{dt2} e figura \ref{dt3}), costruendo un albero che sia \textit{yes}
 solo nei casi la formula booleana 
@@ -866,11 +867,11 @@ verità (e quindi di alberi decisionali), ciascuna con $2^n$ righe, pari a
 $2^{2^{n}}$.\\
 Riassumiamo alcune caratteristiche degli alberi decisionali:
 \begin{itemize}
-  \item abbiamo attributi con valori discreti
-  \item abbiamo un target di uscita discreto, le foglie hanno valori precisi
-  \item posso costruire ipotesi anche con disgiunzioni
-  \item può esserci ``rumore'' nel training dei dati
-  \item possono esserci attributi di cui non ho informazioni
+  \item Abbiamo attributi con valori discreti.
+  \item Abbiamo un target di uscita discreto, per cui le foglie hanno valori precisi.
+  \item Posso costruire ipotesi anche con disgiunzioni.
+  \item Può esserci ``rumore'' nel training dei dati.
+  \item Possono esserci attributi di cui non ho informazioni.
 \end{itemize}
 \subsubsection{Esercitazione sugli alberi decisionali}
 Partiamo con un esercizio con find-S per coglierne le problematiche.
@@ -901,21 +902,19 @@ Partiamo con un esercizio con find-S per coglierne le problematiche.
 \end{esercizio}
 Ricordiamo che un albero decisionale è formato da:
 \begin{itemize}
-  \item \textbf{nodes (\textit{nodi})} etichettati da i vari attributi
-  \item \textbf{branches \textit{rami}} etichettati con i possibili valori
-  dell'attributo che etichetta il nodo sorgente del ramo
-  \item \textbf{leef nodes (\textit{foglie})} etichettati con gli outcome della
-  previsione
+  \item \textbf{Nodes (\textit{nodi})}: etichettati da i vari attributi.
+  \item \textbf{Branches \textit{rami}}: etichettati con i possibili valori
+  dell'attributo che etichetta il nodo sorgente del ramo.
+  \item \textbf{Leef nodes (\textit{foglie})}: etichettati con gli outcome della
+  previsione.
 \end{itemize}
 Un percorso dalla radice fino alla foglia mi rappresenta una congiunzione di
-attributi mentre l'albero in se è quindi una disgiunzione di congiunzioni (una
-per ogni percorso radice-foglia). Un albero quindi formalizza la congiunzione di
-vincoli su attributi ma può estendere il linguaggio a disgiunzioni di vincoli su
-attributi.\\
-Usando funzioni booleane (quindi un attributo può avere valore $\top,\,\,\,T$ o
-$\bot,\,\,\,F$) posso convertire tabelle di verità in alberi decisionali, con
-quindi ogni percorso dalla radice ad una foglia che rappresenta una
-\textbf{regola} e l'intero albero che rappresenta la congiunzione di tutte le
+attributi mentre l'albero in se è una disgiunzione di congiunzioni, una
+per ogni percorso radice-foglia. Un albero formalizza la congiunzione di
+vincoli su attributi ma può estendere il linguaggio per accettare delle disgiunzioni di vincoli su questi ultimi.\\
+Usando funzioni booleane \footnote{un attributo può avere valore $\top,\,\,\,T$ o
+$\bot,\,\,\,F$} posso convertire tabelle di verità in alberi decisionali, avendo ogni percorso dalla radice ad una foglia che rappresenta una
+\textbf{regola}, e l'intero albero rappresenta la congiunzione di tutte le
 regole. Le foglie quindi sono gli assegnamenti di verità della tabella.\\ 
 Posso avere alberi diversi a seconda della scelta del nodo radice.\\
 \begin{esempio}
@@ -948,40 +947,37 @@ target è booleano.
   Prendiamo una qualsiasi funzione booleana e la traduciamo in tabella di
   verità.\\
   A partire dalla tabella costruisco l'albero decisionale dove ogni percorso
-  radice-foglia è un esempio (quindi una riga) della tabella di verità.\\
+  radice-foglia è un esempio, ovvero una riga, della tabella di verità.\\
   Dato che ogni funzione booleana può essere rappresentata con una tabella di
   verità posso costruire un albero decisionale per qualsiasi funzione booleana.
 \end{proof}
-Il metodo appena descritto comunque dimostra il teorema ma non è sempre
-efficiente, dovendo memorizzare tutto.
+Seppur il metodo appena descritto dimostri il teorema, non è sempre
+efficiente, per via del fatto che necessita di memorizzare sempre tutto.
 \begin{teorema}
   Avendo una funzione booleana con $n$ attributi allora posso costruire una
-  tabella di verità con $2^n$ righe. Inoltre posso costruire potenzialmente
-  $2^{2^n}$ diverse ma con lo stesso significo, e quindi altrettanti alberi
-  decisionali.
+  tabella di verità con $2^n$ righe. Potenzialmente posso costruire 
+  $2^{2^n}$ alberi decisionali differenti aventi lo stesso significato.
 \end{teorema}
 Vediamo quindi un algoritmo generale per la costruzione dell'albero:
 \begin{enumerate}
-  \item si inizia con un albero vuoto
-  \item scelgo un attributo opportuno per fare lo \textit{split} dei dati
-  \item per ogni \textit{split} dell'albero:
+  \item Si inizia con un albero vuoto.
+  \item Scelgo un attributo opportuno da impostare come nodo radice per fare lo \textit{split} dei dati.
+  \item Per ogni \textit{split} dell'albero:
   \begin{itemize}
-    \item se non c'è altro da fare si fa la predizione con l'ultimo nodo foglia
-    \item altrimenti si torna allo step 2 e si procede con un altro
+    \item Se non ho altro da fare, calcolo la la predizione con l'ultimo nodo foglia.
+    \item Altrimenti si torna allo step 2 e si procede con un altro \textit{split}.
     \textit{split}
   \end{itemize}
 \end{enumerate}
 Bisognerà capire:
 \begin{itemize}
-  \item come fare in modo ottimizzato lo `\textit{split}
-  \item quando fermare la costruzione (quindi capire quando ``non c'è altro da
-  fare'')
+  \item Come fare in modo ottimizzato lo `\textit{split}
+  \item Quando fermare la costruzione dell'albero.
 \end{itemize}
 \begin{esempio}
   Prendiamo il solito esempio giocattolo di quando andare a fare sport in base
   al clima.\\
-  In base al valore di \textit{outlook} ottengo tre tabelle, in base al valore
-  di overcast, con target $play$ (nell'immagine il terzo arco è etichettato con
+  In base al valore di \textit{outlook} ottengo tre tabelle, le quali si basano sul valore del campo \textit{overcast}, mantenendo comunque il target sul campo $play$ (nell'immagine il terzo arco è etichettato con
   $rainy$ e non con $text$):
   \begin{figure}[H]
     \centering
@@ -1025,30 +1021,29 @@ Bisognerà capire:
     \end{tabular}
     \caption{Tabella C}
   \end{table}
-  Dividendo tramite i valori di outlook ho fatto uno \textit{split}, dividendo
-  così i dati.\\
+ 
   Vediamo un secondo i valori del target nei vari casi:
   \begin{itemize}
-    \item nel caso di \textit{overcast} ho 4 \textit{yes} e 0 \textit{no}
-    \item nel caso di \textit{sunny} ho 2 \textit{yes} e 3 \textit{no}
-    \item nel caso di \textit{rainy} ho 3 \textit{yes} e 2 \textit{no}
+    \item Nel caso di \textit{overcast} ho 4 \textit{yes} e 0 \textit{no}
+    \item Nel caso di \textit{sunny} ho 2 \textit{yes} e 3 \textit{no}
+    \item Nel caso di \textit{rainy} ho 3 \textit{yes} e 2 \textit{no}
   \end{itemize}
   Posso quindi usare una \textbf{funzione di costo} per fissare quando una
-  distribuzione è omogenea (come nel caso di \textit{overcast}) o quando no (gli
+  distribuzione è omogenea (come nel caso di \textit{overcast}) e quando no (gli
   altri due casi). Lo \textit{split} infatti andrebbe fatto in base ai valori
-  del target, più sono omogenei e meglio è, in quanto nel momento in cui si
+  del target: più sono omogenei e meglio è; in quanto nel momento in cui si
   presenta un nuovo test per la classificazione con \textit{outlook} pari a
   \textit{overcast} saprò già cosa fare (in quanto nello storico delle
   esperienze ho sempre avuto \textit{yes}). Le altre due situazioni sono
-  ambigue e quindi, in quei due casi, devo procedere con la costruzione
+  ambigue e, in quei due casi, devo procedere con la costruzione
   dell'albero per ottenere informazioni cercando di rimuovere l'incertezza.  
 \end{esempio}
 La \textbf{funzione costo} è alla base della strategia della costruzione
 dell'albero.\\
 Una strategia può essere quella ``a maggioranza'', prendendo l'attributo che con
 i suoi valori ha meno disomogeneità. Per farlo calcolo la differenza tra $yes$ e
-$no$ di ogni valore per un certo attributo, sommandone io risultati. Scelgo
-l'attributo con più omogeneità (e quindi somma più bassa), che ha una
+$no$ di ogni valore per un certo attributo, sommandone i risultati. Scelgo
+l'attributo con più omogeneità (ovvero quello con la somma piu bassa), che ha una
 distribuzione più pulita dei risultati. Se ho valori con solo
 $yes$ o solo $no$ sommo 0.
 \begin{esempio}
@@ -1056,11 +1051,11 @@ $yes$ o solo $no$ sommo 0.
   \[0+1+1=2\]
   Se avessi avuto un attributo con:
   \begin{itemize}
-    \item primo valore: 1 \textit{yes} e 1 \textit{no}
-    \item secondo valore: 2 \textit{yes} e 0 \textit{no}
-    \item terzo valore: 0 \textit{yes} e 4 \textit{no}
-    \item quarto valore: 2 \textit{yes} e 4 \textit{no}
-    \item quinto valore: 2 \textit{yes} e 2 \textit{no} 
+    \item Primo valore: 1 \textit{yes} e 1 \textit{no}
+    \item Secondo valore: 2 \textit{yes} e 0 \textit{no}
+    \item Terzo valore: 0 \textit{yes} e 4 \textit{no}
+    \item Quarto valore: 2 \textit{yes} e 4 \textit{no}
+    \item Quinto valore: 2 \textit{yes} e 2 \textit{no} 
   \end{itemize}
   avrei avuto:
   \[1+0+0+2+2=5\]
@@ -1124,9 +1119,7 @@ Bisogna in primis capire cosa si intende come \textbf{attributo migliore}. Per
 farlo introduciamo la seguente notazione:
 \[[esempi\,\,\,positivi+,\,\,esempi\,\,\,negativi-]\]
 entrambi rappresentati con un valore intero. Gli esempi positivi sono gli esempi
-che già mi hanno restituito \textit{yes} mentre quelli negativi. In generale
-sono tutti esempi su cui devo ancora valutare l'attributo. E proseguo così
-assegnando etichette positive e negative.
+che già mi hanno restituito \textit{yes} mentre quelli negativi sono quelli che mi hanno restituito \textit{no}.
 Vediamo quanto detto:
 
 \begin{figure}[H]
@@ -1163,15 +1156,14 @@ sbilanciate è da ritenersi migliore.\\
 Per essere ancora più precisi bisogna richiamare la matematica
 dell'\textbf{entropia}.
 \begin{definizione}
-  Dato un training set $S$ con valori $v_i,\,\,i=1\ldots n$. Se l'entropia di un
-  insieme di bit misura più o meno la sua quantità di informazione (quanto è
-  ``speciale'') noi possiamo richiamare una formula per l'entropia su S:
+  Dato un training set $S$ con valori $v_i,\,\,i=1\ldots n$. l'entropia di un
+  insieme di bit misura più o meno la sua quantità di informazione. La formula per il calcolo dell'entropia su un set $S$ è:
   \[I(P(v_1),\ldots,P(v_n))=\sum_{i=1}-P(v_i)\log_2P(v_i)\]
   Dove $I(x)$ indica il valore dell'entropia su $x$ e $P(y)$ sta per la
   probabilità legata ad un valore $y$.  \\
   Nel caso booleano le istanze presenti in un certo insieme $S$ sono associate
-  ad un'etichetta, conteggiandole. Nella variabile $p$ conto i valori di $S$ con
-  etichetta positiva e con $n$ negativa (esempi positivi e negativi). Ottengo
+  ad un'etichetta, e vengono conteggiate. Nella variabile $p$ conto i valori di $S$ con
+  etichetta positiva e con $n$ negativa. Ottengo
   quindi in modo esplicito la sommatoria:
   \[I\left(\frac{p}{p+n},\frac{n}{p+n}\right)=-\frac{p}{p+n}\log_2\frac{p}{p+n}
     -\frac{n}{p+n}\log_2\frac{n}{p+n}\]  
@@ -1179,7 +1171,7 @@ dell'\textbf{entropia}.
   quelli negativi (saranno quindi tra 0 e 1) possiamo misurare
   l'\textbf{impurità} di $S$ con l'entropia: 
   \[Entropy(S)=-p_+\log_2 p_+-p_-\log_2 p_-\]
-  Avrò quindi alta entropia se positivi e negativi sono ``metà e metà''
+  Avrò un'alta entropia se positivi e negativi sono ``metà e metà''
 \end{definizione}
 Parliamo quindi di \textbf{information gain} $IG$ che viene calcolato su ogni
 attributo $A$ e su $S$:
@@ -1187,7 +1179,7 @@ attributo $A$ e su $S$:
 dove:
 \[remainder(A)=\sum_{i=1}^v \frac{p_i+n_i}{p+n}
   I\left(\frac{p_i}{p_i+n_i},\frac{n_i}{p_i+n_i}\right)\]
-e quindi l'information gain è la riduzione aspettata nell'entropia per ordinare
+l'information gain è la riduzione aspettata nell'entropia per ordinare
 $S$ sull'attributo $A$. Si sceglie l'attributo con il maggiore IG.\\
 Possiamo riscrivere il conto come:
 \[IG(S,A)=Entropy(S)-\sum_{v\in values(A)}\frac{|S_v|}{|S|}Entropy(S_v)\]
@@ -1204,18 +1196,18 @@ Possiamo riscrivere il conto come:
 \end{esempio}
 Facciamo qualche osservazione finale sull'\textbf{algoritmo ID3}:
 \begin{itemize}
-  \item lo spazio delle ipotesi è completo e sicuramente contiene il target
-  \item ho in output una singola ipotesi
-  \item non si ha backtracking sugli attributi selezionati, si procede con una
-  ricerca greedy (ma trovo scelte buone localmente e non ottime)
-  \item fa scelte basate su una ricerca statistica, facendo sparire incertezze
-  sui dati
-  \item il bias non è sulla classe iniziale, essendo lo spazio delle ipotesi
+  \item Lo spazio delle ipotesi è completo e sicuramente contiene il target.
+  \item Ho in output una singola ipotesi.
+  \item Non si ha backtracking sugli attributi selezionati, si procede con una
+  ricerca greedy, trovando scelte buone localmente ma non ottime.
+  \item Fa scelte basate su una ricerca statistica, facendo sparire incertezze
+  sui dati.
+  \item Il bias non è sulla classe iniziale, essendo lo spazio delle ipotesi
   completo, ma sulla scelta di solo alcune funzioni, preferendo alberi corti (e
   più semplici) e posizionando attributi ad alto information gain vicino alla
   radice. Il bias è quindi sulla preferenza di alcune ipotesi. Si usa il
-  criterio euristico di \textit{rasoio di Occam}
-  \item $H$ è l'insieme potenza delle istanze $X$
+  criterio euristico di \textit{rasoio di Occam}.
+  \item $H$ è l'insieme potenza delle istanze $X$.
 \end{itemize}
 Viene introdotto però l'\textbf{overfitting}.
 \begin{definizione}

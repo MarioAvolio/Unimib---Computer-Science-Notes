@@ -35,10 +35,10 @@ Ci concentreremo su problemi intrattabili ma non \textit{dimostrabilmente
 Per anni problemi come il \textit{test di primalità} potevano garantire che
 prima o poi si sarebbe trovato un algoritmo polinomiale (forse). Quindi abbiamo:
 \begin{itemize}
-  \item problemi dimostrabilmente intrattabili
-  \item problemi non dimostrabilmente intrattabili, sono, diciamo, ``i più
-  difficili'' tra i problemi intrattabili
-  \item tutti gli altri problemi
+  \item Problemi dimostrabilmente intrattabili.
+  \item Problemi non dimostrabilmente intrattabili, sono, diciamo, ``i più
+  difficili'' tra i problemi intrattabili.
+  \item Tutti gli altri problemi.
 \end{itemize}
 \textbf{Un problema indecidibile non è un problema intrattabile}, in quanto non
 si hanno proprio algoritmi che risolvono un certo problema e questo è
@@ -78,17 +78,13 @@ lo stato. Tutto questo basta per il \textbf{calcolo}, infatti:
   potente della Macchina di Turing:
   \begin{center}
    ``Se un problema è umanamente calcolabile, allora esisterà una macchina di
-    Turing in grado di risolverlo (cioè di calcolarlo)''
+    Turing in grado di risolverlo''
   \end{center}
   È una tesi che non ha dimostrazione formale (non avendo chiara la definizione
   di \textbf{calcolo}) ma è stata dimostrata
-  empiricamente nel corso degli anni. Portando quindi a dire che il calcolo è
-  ciò che può essere eseguito con un Macchina di Turing (anche se non tutti i
-  meccanismi di calcolo sono equivalenti ad una TM, ad esempio gli automi a
-  stati finiti).\\
-  Quindi ciò che è computabile è computabile da una TM o da un suo equivalente
-  (come un linguaggio di programmazione). Banalmente anche una rete neurale lo
-  è. 
+  empiricamente nel corso degli anni, portando quindi a dire che il calcolo è tutto
+  ciò che può essere eseguito (o computato) con una Macchina di Turing.\\
+  
 \end{teorema}
 \begin{figure}
   \centering
@@ -142,43 +138,36 @@ Formalizziamo quindi la macchina di Turing.
 \begin{definizione}
   La funzione di transizione esprime cosa fa passo-passo la TM:
   \[\delta:K\times\Sigma\to K\times \Sigma\times\{\leftarrow,\rightarrow,-\}\]
-  Prevede in input uno stato e un simbolo e in output un cambio
-  di stato il cambio e/o del simbolo in quel punto e/o lo spostamento della
-  testina di una posizione (che può comunque restare ferma).\\
-  Si possono avere diverse varianti di implementazioni, obbligando al testina a
-  spostarsi (andando avanti e indietro per indicare che deve stare ferma
-  etc$\ldots$).\\
-  Vedremo poi che avere questa funzione di transazione comporta l'avere una
-  \textbf{TM deterministica} e che si potrà sviluppare una \textbf{TM non
+  Prevede in input uno stato e un simbolo, e in output un cambio
+  di stato, di simbolo, e lo spostamento della testina. 
+  Gli output della TM possono cambiare come rimanere invariati.\\
+  Avere questa funzione di transazione comporta l'avere una
+  \textbf{TM deterministica}, da cui si potrà sviluppare una \textbf{TM non
     deterministica}.
 \end{definizione}
-Ogni operazione sulla TM ha lo stesso tempo e quindi posso usare il numero di
-passi per calcolare il tempo di risoluzione.\\
+Ogni operazione sulla TM impiega lo stesso tempo e perciò posso usare il numero di
+operazioni per calcolare il tempo di risoluzione.\\
 Per esprimere la computazione di una TM usiamo una \textbf{configurazione},
-ovvero sulla base della definizione della TM e dello stato attuale devo
-definire tutti i passi.
+ovvero definisco tutti i passaggi che la mia TM deve svolgere partendo da uno stato iniziale, 
+fino ad arrivare ad uno stato di accettazione.
+
 \subsubsection{Configurazione di una TM}
 \begin{definizione}
   Un \textbf{configurazione} di una TM è definita da:
   \begin{itemize}
-    \item lo stato in cui si trova
-    \item la stringa sul nastro (definita da tutti i simboli a destra della
-    testina e tutti quelli a sinistra, ai quali viene aggiunto quello sotto la
-    testina)
-    \item la posizione delle testina 
+    \item Lo stato in cui si trova.
+    \item La stringa presente sul nastro, definita dall'insieme di tutti i simboli presenti a destra della testina, cui vanno aggiunti tutti quelli presenti a sinistra conteggiando anche quello corrente presente sotto la testina. 
+    \item La posizione delle testina. 
   \end{itemize}
   In base alla configurazione la TM saprà come procedere.\\
-  La configurazione descrive in ogni istante lo stato della macchina e quindi si
-  ha la seguente \textbf{configurazione iniziale}, per la stringa $S$ (che ha un
-  carattere per posizione del nastro, al quale comunque viene aggiunto lo
-  \textit{start} $triangleright$):
+  La configurazione descrive in ogni istante lo stato della macchina, avendo per una stringa generica $S$ la seguente \textbf{configurazione iniziale} la seguente \textbf{configurazione iniziale}:
   \[(k_0,\triangleright S, 1)\]
-  e ad un certo punto sia arriverà ad uno stato di arresto, per esempio dopo
-  aver cambiato $S$ in $S1$ (sul nastro possono avvenire anche operazioni di Scrittura) ed esser andati nella posizione 2:
+  il carattere $\triangleright$ viene aggiunto come carattere di \textbf{start}.
+  Ad un certo punto si arriverà ad uno stato di arresto, per esempio dopo
+  aver cambiato $S$ in $S1$ ed esser andati nella posizione 2:
   \[(H,\triangleright S1, 2)\]
-  e quindi output sarà la stringa $S1$ (senza il $\triangleright$).\\
-  Potrei avere anche $Y$ (yes) o $N$ (no) al posto di $H$ (halt) in problemi decisionali, per
-  capire magari se una certa stringa ha le caratteristiche desiderate o meno.
+  ottenendo la stringa $S1$, senza il $\triangleright$, che diverrà il mio output.\\
+  Potrei avere anche come output $Y$ (yes) o $N$ (no) al posto di $H$ (halt) in problemi decisionali.
 \end{definizione}
 Vediamo alcuni esempi di costruzione di TM:
 \begin{esempio}
@@ -198,7 +187,7 @@ Vediamo alcuni esempi di costruzione di TM:
   \begin{itemize}
     \item $S=\{s_0,s_1\}$
     \item $\Sigma =\{\triangleright, \sqcup, 0,1\}$
-    \item per la funzione di transizione si ha:
+    \item Per la funzione di transizione si ha:
     \[\delta\to(s_0,[\triangleright, 0,1])\to(s_0,[\triangleright, 0,1],
       \rightarrow)\]
     \[\delta\to(s_0,\sqcup)\to(s_1,\sqcup,\leftarrow)\]
@@ -206,32 +195,28 @@ Vediamo alcuni esempi di costruzione di TM:
     \[\delta\to(s_1,1)\to(s_1,0,\leftarrow)\]
     \[\delta\to(s_1,\triangleright)\to(H,\triangleright,-)\]
 
-    ovvero scorro fino alla fine e inverto l'ultimo numero 
-    (se è 0 diventa 1 e fine ma se è 1 lo rendo 0 e poi mi sposto a sinistra e
-    se è un 1 diventa 0 e così via, fino alla
-    fine dove metto 1, come prevede la somma binaria)
-    \item $s_0$ è lo stato iniziale
+    ovvero scorro fino alla fine e inverto l'ultimo numero, il quale se è 0 diventa 1 garantendomi 
+    l'arresto della TM, mentre se è 1 lo rendo 0 e mi continuo a spostare verso sinistra in cerca di 
+    uno 0 che mi garantisca la terminazione.
   \end{itemize}
+    \item $s_0$ è lo stato iniziale
 \end{esempio}
-Volendo ad un certo punto si arriva allo stato finale $H$. In quel momento ho
-una nuova stringa $S1$ (il risultato delle modifiche su $S$):
+Ad un certo punto si arriva allo stato finale $H$. In quel momento ho
+una nuova stringa $S1$, contenente il risultato delle mie modifiche su $S$:
 \[(H,\triangleright S1, -)\]
-e la testina non deve più spostarsi. Questa può essere interpretata come uno
-\textbf{stato di arresto}.\\
+La testina, non dovendo più spostarsi, può essere interpretato come uno \textbf{stato di arresto}.\\
 Un altro caso è avere una computazione infinita nel caso in cui, letto un
 simbolo e lo stato, la testina ricopia il simbolo ma non si sposta ne a destra
 ne a sinistra. Oppure una testina potrebbe ``rimbalzare'' infinitamente tra due
 posizioni. Quest'ultima cosa può anche accadere tra molte posizioni, entrando
-comunque in \textbf{loop infinito}, ritornando sempre, prima o poi, in una
+comunque in \textbf{loop infinito} \footnote{Un insieme \textbf{finito} di elementi (stati, simboli e transizioni) può comunque descrivere un comportamento \textbf{infinito} (insieme infinito di passi)}, ritornando sempre, prima o poi, in una
 configurazione (e si noti ``configurazione'', non coppia stato-simbolo) già
 avuta. In questo caso la computazione è \textbf{non terminante} e la
 computazione non produce alcun output. \\
-\textbf{NOTA:} Un insieme finito di
-  elementi (stati, simboli e possibili transazioni) può comunque descrivere un
-  comportamento infinito (infiniti passi).\\ 
+
 Analizziamo meglio gli stati terminanti $Y$ e $N$: il primo indicante che la
 stringa in input è accettata, avendo certe caratteristiche richieste, il secondo
-che la stringa viene rifiutata. Non ho quindi più bisogno della stringa in
+che la stringa viene rifiutata. Non ho più bisogno della stringa in
 output, quindi posso lasciar scritto quello che voglio quando finisco, mi basta
 sapere lo stato finale $Y$ e $N$.
 \begin{esempio}
@@ -259,7 +244,7 @@ sapere lo stato finale $Y$ e $N$.
   stringa).
 \end{esempio}
 \begin{esempio}
-  Vediamo un esempio in cui una TM riconosce una stringa binaria che è
+  Vediamo un esempio in cui una TM riconosce se una stringa binaria è
   palindroma o meno.\\
   \textit{Si indica solo la funzione di transizione}.\\
   Se sono sullo start vado a destra di uno:
@@ -397,48 +382,44 @@ spostarsi e scrivere dove vuole, a differenza degli automi.\\
 \subsection{Decisione e Accettazione di una TM}
 Vediamo cosa quindi può fare una TM:
 \begin{itemize}
-  \item una TM può \textbf{computare} funzioni su stringhe
-  \item una TM può \textbf{decidere} (rispondendo $Y$ o $N$) un linguaggio
+  \item Una TM può \textbf{computare} funzioni su stringhe.
+  \item Una TM può \textbf{decidere} (rispondendo $Y$ o $N$) un linguaggio
   (ovvero un insieme finito o infinito di stringhe, come il caso sopra
   $a^nb^nc^n$), ovvero data una stringa in input è sempre in grado di dire se
-  appartiene o meno al linguaggio. Un linguaggio è \textbf{decidibile}, o, più
+  appartiene o meno ad un dato linguaggio. Un linguaggio è \textbf{decidibile}, o, più
   formalmente, \textbf{ricorsivo}, se esiste
-  almeno una TM che decide il linguaggio, fermandosi sempre in $Y$ o
+  almeno una TM che riesce a deciderlo, fermandosi sempre in $Y$ o
   $N$. Solitamente è un linguaggio finito, ma potrebbe anche essere infinito (ma
   tutte le stringhe sarebbero comunque riconoscibili)
-  \item una TM può \textbf{accettare} un linguaggio, ovvero se fornisco una
+  \item Una TM può \textbf{accettare} un linguaggio, ovvero se fornisco una
   stringa in input che appartiene al linguaggio la riconosce come tale e prima o
   poi arriva allo stato $Y$, altrimenti la macchina potrebbe:
   \begin{itemize}
-    \item fermarsi in uno stato $N$
-    \item entrare in un loop infiniti, non avendo mai la risposta ma magari in
-    realtà non è un loop infinito ma solo servono anni per avere la risposta
+    \item Fermarsi in uno stato $N$.
+    \item Entrare in un loop infinito, il quale può essere realmente infinito, oppure finito ed estremamente oneroso in termini di tempo. Tuttavia non è possibile capire a priori quale delle due ipotesi è giusta quando ci si trova in questa casistica.
   \end{itemize}
-  Quindi la TM non è in grado di distinguere completamente le stringhe che non
+  La TM non è in grado di distinguere completamente le stringhe che non
   fanno parte di un linguaggio. Un linguaggio è \textbf{ricorsivamente enumerabile} se, data una stringa opportuna in
   input, la TM restituisce $Y$, altrimenti la TM potrebbe o fermarsi con $N$ o andare
   avanti all'infinito nella computazione. Posso enumerare tutte le stringhe che
-  fanno parte del linguaggio, tramite una certa procedura. Potrei quindi avere
-  un linguaggio infinito ma con 
+  fanno parte del linguaggio tramite una procedura specifica. Potrei avere
+  un linguaggio finito ma con 
   stringhe che mandano in loop la TM, anche se comunque non sono in grado di
   capire se sono in un loop o se prima o poi la stringa data in input verrà
-  riconosciuto. Ci sono linguaggi che si può dimostrare 
-  essere ricorsivamente enumerabili (e alcuni che non sono nemmeno
-  ricorsivamente enumerabili)
+  riconosciuta.
 \end{itemize}
 \subsubsection{Linguaggi Ricorsivi e Ricorsivamente enumerabili}
-I linguaggi possono essere quindi ricorsivi, ricorsivamente enumerabili o non
+I linguaggi possono essere: ricorsivi, ricorsivamente enumerabili o non
 ricorsivamente enumerabili. Un linguaggio finito è ricorsivo.\\
-Se ho l'alfabeto $\Sigma$, presa la *-chiusura
-di $\Sigma$ (che quindi comprende la stringa vuota e tutte le stringhe che
-posso ottenere concatenando uno o più simboli di $\Sigma$), ovvero $\sigma^*$,
+Dato l'alfabeto $\Sigma$, presa la chiusura
+di $\Sigma$ ovvero * (che mi descrive tutte quelle stringhe ottenibili concatenando 0 o N simboli di $\Sigma$), ovvero $\Sigma^*$,
 la TM riconosce subito la stringa in input in quanto costruita per funzionare
 su $\Sigma$, quindi il linguaggio è ricorsivo. Se prendo $\Sigma^+$, ovvero
 $\Sigma^*$ senza $\varepsilon$, ho comunque un linguaggio ricorsivo per lo
 stesso motivo, dovendo solo controllare in più se $s_0$ è $\sqcup$.
 \begin{teorema}
   Preso un linguaggio $L$ costruito alfabeto $\Sigma$ si ha che
-  se $L\subseteq\Sigma^*$ se $L$ è ricorsivo è anche ricorsivamente
+  se $L\subseteq\Sigma^*$ se $L$ è ricorsivo allora è ricorsivamente
   enumerabile.
   \begin{proof}
     Se $L$ è ricorsivo esiste una TM che riconosce se, data una stringa $x$,
@@ -484,17 +465,12 @@ stesso motivo, dovendo solo controllare in più se $s_0$ è $\sqcup$.
   uscito con $Y$. 
 \end{proof}
 \subsection{Problemi di decisione}
-A noi interessano comunque i \textbf{problemi} ma i linguaggi sono comodi per
-parlare di \textbf{intrattabilità}, legandosi bene ai \textbf{problemi di
-  decisione}.
 \begin{definizione}
   Un problema di decisione è un problema con solo due possibili risposte, $Y$ e
   $N$.\\
   I problemi di decisione sono restrizioni di problemi di ottimo, ai quali viene
   aggiunto un \textbf{bound}, cambiando la domanda in una richiesta di esistenza
-  di un caso che soddisfi il bound nel problema di ottimo (ma comunque potrei
-  non avere tempi polinomiali, anche se il problema decisionale è più facile di
-  quello di ottimo).
+  di un caso che soddisfi la nuova restrizione.
 \end{definizione}
 \begin{teorema}
   Un problema di decisione è sempre più facile del corrisponde problema di
@@ -503,7 +479,7 @@ parlare di \textbf{intrattabilità}, legandosi bene ai \textbf{problemi di
 Posso associare un problema di decisione allo studio di un linguaggio, avendo
 essi la stessa risposta, $Y$ o $N$. Un problema di decisione ha quindi un
 corrispondente linguaggio, con l'input del problema che ha una corrispondente
-stringa (di cui bisogna studiare appartenenza a un linguaggio).\\
+stringa (di cui bisogna studiare l'appartenenza a un linguaggio).\\
 \begin{esempio}
   Il problema \textbf{Hamiltonian cycle problem (\textit{HCP})} (esiste anche la
   variante non con il ciclo ma con il cammino: \textbf{Hamiltonian path problem
